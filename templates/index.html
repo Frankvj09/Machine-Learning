@@ -17,6 +17,16 @@
 
     <div class="bloque1">
 
+        <H1>FIst page</H1>
+
+        <P>Machine Learning</P>
+
+    {% if name%}
+        <p>El nombre es {{ name }} </strong></p>
+    {% else %}
+        <p>No se ha proporcionado un nombre.</p>
+    {% endif %}
+
         <p>Espacio para division</p>
     </div>
 </body>

@@ -5,3 +5,37 @@
 
     font-size: medium;
 }
+
+.encabezado {
+    background-color: #519a7b;
+    padding: 10px;
+    text-align: center;
+    font-size: large;
+forced-color-adjust: #acccbc;
+}
+
+.subtitulo {
+    color: #046d3c;
+font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+
+.img  {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.contenedor {
+    display: flex;              /* Activa modo horizontal */
+    align-items: center;        /* Centra verticalmente */
+    gap: 30px;                  /* Espacio entre imagen y texto */
+}
+
+.imagen img {
+    width: 400px;               /* Tamaño de la imagen */
+    border-radius: 10px;        /* Opcional: bordes redondeados */
+}
+
+.texto {
+    flex: 1;                    /* Hace que el texto ocupe el resto del espacio */
+}

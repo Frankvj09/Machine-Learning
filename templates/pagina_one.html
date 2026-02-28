@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Mi página</title>
+</head>
+
+<body>
+    <h1 class="encabezado">Machine Learning {{ nombre }}</h1>
+    <h3 class="subtitulo">Starbucks apuesta por la inteligencia artificial para revolucionar la experiencia del cliente
+    </h3>
+    <div class="parrafo1">
+        Desde su fundación en 1971 en Seattle, la cadena de cafeterías Starbucks ha sido sinónimo de innovación en el
+        sector retail. Lo que comenzó como una pequeña tienda de granos de café se transformó, bajo el liderazgo de
+        Howard Schultz, en una de las marcas más reconocidas del mundo. Hoy, la compañía no solo vende café: también
+        lidera una transformación digital impulsada por el uso estratégico del Machine Learning.
+    </div>
+
+<div class="contenedor">
+    
+    <div class="imagen">
+        <img src="{{ url_for('static', filename='img/brew.jpg') }}" alt="deep brew">
+    </div>
+
+    <div class="texto">
+        <h3 class="subtitulo">De la intuición a los datos</h3>
+        Entre 2016 y 2017, Starbucks inició una transición hacia un modelo de negocio más orientado a los datos. Con
+        millones de usuarios activos en su aplicación móvil y programa de fidelización, la empresa comprendió que tenía
+        en sus manos un activo clave: información detallada sobre hábitos de consumo.
+
+        En 2019 presentó oficialmente “Deep Brew”, su plataforma interna de inteligencia artificial. El objetivo era
+        claro: dejar atrás las promociones genéricas y ofrecer experiencias personalizadas a cada cliente.
+    </div>
+
+</div>
+
+    <div class="parrafo3">
+        <h3 class="subtitulo">Personalización en tiempo real</h3>
+
+        El sistema analiza variables como el historial de compras, la frecuencia de visitas, la ubicación y hasta la
+        hora del día. Con estos datos, la aplicación puede recomendar productos específicos o enviar promociones
+        diseñadas para cada usuario.
+
+        Por ejemplo, si un cliente suele comprar bebidas frías los viernes por la tarde, la app puede ofrecerle un
+        descuento personalizado en ese momento exacto. Este tipo de estrategia no solo mejora la experiencia del
+        consumidor, sino que incrementa la probabilidad de compra.
+    </div>
+
+    <div>
+        <h3 class="subtitulo">Más allá del marketing</h3>
+        
+        El uso de Machine Learning en Starbucks no se limita a la personalización. La tecnología también permite
+        predecir la demanda por tienda, optimizar inventarios y ajustar turnos de empleados. Esto reduce el desperdicio
+        de productos, mejora la eficiencia operativa y garantiza mayor disponibilidad en horas pico.
+
+        En un mercado altamente competitivo, estas decisiones basadas en datos representan una ventaja significativa.
+
+        <h3 class="subtitulo">Tecnología al servicio del retail</h3>
+
+        Aunque Starbucks no es una empresa tecnológica en esencia, ha demostrado que la inteligencia artificial puede
+        integrarse con éxito en negocios tradicionales. La clave ha sido desarrollar equipos internos especializados y
+        utilizar la tecnología como herramienta estratégica, no como producto comercial.
+
+        Hoy, una parte importante de las ventas de la compañía proviene de su ecosistema digital, confirmando que el
+        futuro del retail no solo se encuentra en el mostrador, sino también en los algoritmos.
+    </div>
+
+</html>
