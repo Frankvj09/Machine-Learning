@@ -8,29 +8,31 @@
     <title>Mi página</title>
 </head>
 
-<body>
-    <h1>Hola {{ nombre }}</h1>
+<body class="inicio">
 
- {% for item in items %}
-        <p>{{ item }}</p>
-    {% endfor %}
-
-    <div class="bloque1">
-
-        <H1>FIst page</H1>
-
-        <P>Machine Learning</P>
-
-    {% if name%}
-        <p>El nombre es {{ name }} </strong></p>
-    {% else %}
-        <p>No se ha proporcionado un nombre.</p>
-    {% endif %}
-
-        <p>Espacio para division</p>
-    </div>
+        <!-- Navbar Horizontal -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <i class="fas fa-robot"></i>
+                    <span>ML<span class="brand-highlight">Hub</span></span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/page_one">Starbucks Case</a></li>
+                <li><a href="/LinealRegression">Regresión Lineal</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main class="main-content">
+        <section class="welcome-section">
+            <div class="welcome-card">
+                <h1 class="welcome-title">Bienvenido a MLHub</h1>
+                <p class="welcome-text">Explora casos de Machine Learning y experimenta con modelos interactivos</p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
-
-</body>
 </html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regresión Lineal - Predicción de Notas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="LinealRegression">
+    <div class="container">
+        <div class="header">
+            <h1>Predicción de Notas con Regresión Lineal</h1>
+            <p>Ingresa las horas de estudio y descubre tu nota predicha</p>
+        </div>
+        
+        <div class="main-card">
+            {% if stats %}
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-label">Coeficiente (pendiente)</div>
+                    <div class="stat-value">{{ stats.coefficient }}</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Intercepto</div>
+                    <div class="stat-value">{{ stats.intercept }}</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">R² Score</div>
+                    <div class="stat-value">{{ stats.r2_score }}</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Correlación</div>
+                    <div class="stat-value">{{ stats.correlation }}</div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="form-section">
+                <form method="POST" action="/LinealRegression">
+                    <div class="form-group">
+                        <label for="study_hours">Horas de Estudio:</label>
+                        <input type="number" 
+                               id="study_hours" 
+                               name="study_hours" 
+                               step="0.1" 
+                               min="0" 
+                               max="24" 
+                               placeholder="Ej: 15.5"
+                               value="{{ hours if hours else '' }}"
+                               required>
+                        <button type="submit">Predecir Nota</button>
+                    </div>
+                </form>
+            </div>
+            
+            {% if error %}
+                <div class="error-message">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            {% if result is not none %}
+                <div class="result-card">
+                    <div class="result-title">Nota Predicha:</div>
+                    <div class="result-value">{{ "%.2f"|format(result) }}</div>
+                    <div class="result-info">
+                        Basado en {{ "%.1f"|format(hours) }} horas de estudio
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if plot_url %}
+                <div class="plot-container">
+                    <h3 style="margin-bottom: 20px; color: #333;">Visualización de la Regresión Lineal</h3>
+                    <img src="data:image/png;base64,{{ plot_url }}" alt="Gráfica de Regresión Lineal">
+                    <p class="info-text" style="margin-top: 15px;">
+                        Los puntos azules son los datos reales, la línea roja es el modelo de regresión,<br>
+                        y la estrella verde muestra tu predicción.
+                    </p>
+                </div>
+            {% endif %}
+            
+            <div class="info-text">
+                <p>El modelo utiliza 20 datos de estudiantes para predecir tu nota basándose en las horas de estudio</p>
+                <p>La nota máxima es 5.0 (escala universitaria)</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/" class="back-link">← Volver al inicio</a>
+        </div>
+    </div>
+</body>                 
+</html>
