@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Tesla - Autonomous Driving</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <i class="fas fa-robot"></i>
+                    <span>ML<span class="brand-highlight">Hub</span></span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/page_one"><i class="fas fa-coffee"></i> Starbucks Case</a></li>
+                <li><a href="/LinealRegression"><i class="fas fa-chart-line"></i> Linear Regression</a></li>
+                <li><a href="/LogisticRegression"><i class="fas fa-chart-bar"></i> Logistic Regression</a></li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-building"></i> Use Cases
+                        <i class="fas fa-chevron-down dropdown-icon"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/use-case/netflix"><i class="fas fa-tv"></i> Netflix - Recommendations</a></li>
+                        <li><a href="/use-case/amazon"><i class="fas fa-box"></i> Amazon - Demand Prediction</a></li>
+                        <li><a href="/use-case/tesla"><i class="fas fa-car"></i> Tesla - Autonomous Driving</a></li>
+                        <li><a href="/use-case/spotify"><i class="fas fa-music"></i> Spotify - Music Discovery</a></li>
+                        <li><a href="/use-case/paypal"><i class="fas fa-shield-alt"></i> PayPal - Fraud Detection</a></li>
+                        <li><a href="/use-case/google"><i class="fas fa-search"></i> Google - Search Ranking</a></li>
+                    </ul>
+                </li>
+                <li><a href="/linear-concepts"><i class="fas fa-book-open"></i> Linear Concepts</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="header">
+                <h1>🚗 Tesla Autopilot & Full Self-Driving</h1>
+                <p>How Tesla uses Deep Learning for autonomous driving</p>
+            </div>
+            
+            <div class="main-card">
+                <div class="use-case-card" style="box-shadow: none; padding: 0;">
+                    <div class="use-case-header" style="background: linear-gradient(135deg, #e82127 0%, #b81a1f 100%);">
+                        <i class="fas fa-car"></i>
+                        <h2>Autonomous Driving System</h2>
+                    </div>
+                    <div class="use-case-body">
+                        <div class="use-case-section">
+                            <h3><i class="fas fa-question-circle"></i> Problem Description</h3>
+                            <p>Tesla's mission is to achieve full self-driving capability, requiring vehicles to perceive their environment, make real-time decisions, and navigate complex traffic scenarios safely. This involves processing vast amounts of visual data from cameras, radar, and ultrasonic sensors to understand road conditions, detect obstacles, and predict the behavior of other road users.</p>
+                        </div>
+                        
+                        <div class="use-case-section">
+                            <h3><i class="fas fa-brain"></i> Type of Machine Learning</h3>
+                            <p><strong>Deep Learning + Computer Vision + Reinforcement Learning</strong></p>
+                            <span class="use-case-tag">Neural Networks</span>
+                            <span class="use-case-tag">Computer Vision</span>
+                            <span class="use-case-tag">Reinforcement Learning</span>
+                        </div>
+                        
+                        <div class="use-case-section">
+                            <h3><i class="fas fa-database"></i> Input Data</h3>
+                            <ul style="margin-left: 28px; color: #666;">
+                                <li>8 cameras providing 360° visibility (video streams)</li>
+                                <li>Radar and ultrasonic sensor data</li>
+                                <li>GPS and mapping data</li>
+                                <li>Fleet data from 2+ million vehicles (shadow mode)</li>
+                                <li>Real-time traffic conditions</li>
+                                <li>Driver behavior patterns</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="use-case-section">
+                            <h3><i class="fas fa-chart-line"></i> Expected Output</h3>
+                            <ul style="margin-left: 28px; color: #666;">
+                                <li>Object detection and classification (vehicles, pedestrians, signs)</li>
+                                <li>Lane detection and path planning</li>
+                                <li>Traffic light and stop sign recognition</li>
+                                <li>Collision avoidance predictions</li>
+                                <li>Autonomous navigation decisions (steering, acceleration, braking)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="use-case-section">
+                            <h3><i class="fas fa-globe"></i> Real-World Relevance</h3>
+                            <p>Tesla's Autopilot has logged over 3 billion miles of real-world driving data, making it one of the most advanced autonomous driving systems globally. The "Shadow Mode" allows Tesla to compare human driving decisions with AI predictions continuously, improving the system without requiring active engagement. Tesla's approach using vision-only technology (no LIDAR) demonstrates that deep learning can achieve human-level driving perception using only cameras, significantly reducing costs and complexity.</p>
+                            <div class="example-box" style="margin-top: 15px;">
+                                <i class="fas fa-chart-line"></i> <strong>Impact:</strong> Tesla vehicles with Autopilot are statistically safer than the average vehicle, with one accident for every 5.4 million miles driven on Autopilot compared to one accident for every 1.5 million miles without it (Tesla Vehicle Safety Report).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Machine Learning Hub</h4>
+                <p>Exploring real-world ML applications</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/LinealRegression">Linear Regression</a></li>
+                    <li><a href="/LogisticRegression">Logistic Regression</a></li>
+                    <li><a href="/linear-concepts">Linear Concepts</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Francisco Vallejos Jaramillo</p>
+                <p>University of Cundinamarca</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Machine Learning Hub. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Netflix - Recommendation System</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <i class="fas fa-robot"></i>
+                    <span>ML<span class="brand-highlight">Hub</span></span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/page_one"><i class="fas fa-coffee"></i> Starbucks Case</a></li>
+                <li><a href="/LinealRegression"><i class="fas fa-chart-line"></i> Linear Regression</a></li>
+                <li><a href="/LogisticRegression"><i class="fas fa-chart-bar"></i> Logistic Regression</a></li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-building"></i> Use Cases
+                        <i class="fas fa-chevron-down dropdown-icon"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/use-case/netflix"><i class="fas fa-tv"></i> Netflix - Recommendations</a></li>
+                        <li><a href="/use-case/amazon"><i class="fas fa-box"></i> Amazon - Demand Prediction</a></li>
+                        <li><a href="/use-case/tesla"><i class="fas fa-car"></i> Tesla - Autonomous Driving</a></li>
+                        <li><a href="/use-case/spotify"><i class="fas fa-music"></i> Spotify - Music Discovery</a></li>
+                        <li><a href="/use-case/paypal"><i class="fas fa-shield-alt"></i> PayPal - Fraud Detection</a></li>
+                        <li><a href="/use-case/google"><i class="fas fa-search"></i> Google - Search Ranking</a></li>
+                    </ul>
+                </li>
+                <li><a href="/linear-concepts"><i class="fas fa-book-open"></i> Linear Concepts</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="header">
+                <h1>Netflix Recommendation System</h1>
+                <p>How Netflix uses Machine Learning to personalize your viewing experience</p>
+            </div>
+            
+            <div class="main-card">
+                <div class="use-case-card" style="box-shadow: none; padding: 0;">
+                    <div class="use-case-header" style="background: linear-gradient(135deg, #e50914 0%, #b81a1f 100%);">
+                        <i class="fas fa-tv"></i>
+                        <h2>Content Recommendation Engine</h2>
+                    </div>
+                    <div class="use-case-body">
+                        <div class="use-case-section">
+                            <h3><i class="fas fa-question-circle"></i> Problem Description</h3>
+                            <p>Netflix faces the challenge of helping over 260 million subscribers discover content they'll enjoy from a library of thousands of movies and TV shows. Without effective recommendations, users would struggle to find relevant content, leading to poor user experience and potential subscription cancellation.</p>
+                        </div>
+                        
+                        <div class="use-case-section">
+                            <h3><i class="fas fa-brain"></i> Type of Machine Learning</h3>
+                            <p><strong>Collaborative Filtering + Content-Based Filtering + Deep Learning</strong></p>
+                            <span class="use-case-tag">Unsupervised Learning</span>
+                            <span class="use-case-tag">Recommendation Systems</span>
+                        </div>
+                        
+                        <div class="use-case-section">
+                            <h3><i class="fas fa-database"></i> Input Data</h3>
+                            <ul style="margin-left: 28px; color: #666;">
+                                <li>User viewing history (what they watched, when, how long)</li>
+                                <li>User ratings (thumbs up/down, star ratings)</li>
+                                <li>Content metadata (genre, cast, director, year)</li>
+                                <li>User demographics (age, location, language preferences)</li>
+                                <li>Time of day and device used</li>
+                                <li>Search queries and browsing behavior</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="use-case-section">
+                            <h3><i class="fas fa-chart-line"></i> Expected Output</h3>
+                            <ul style="margin-left: 28px; color: #666;">
+                                <li>Personalized list of recommended titles for each user</li>
+                                <li>"Top Picks for You" row on the homepage</li>
+                                <li>"Because you watched..." suggestions</li>
+                                <li>Trending now recommendations based on similar users</li>
+                                <li>Predicted user rating for each title (1-5 stars)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="use-case-section">
+                            <h3><i class="fas fa-globe"></i> Real-World Relevance</h3>
+                            <p>Netflix's recommendation system is estimated to save the company over $1 billion annually by reducing churn and increasing engagement. 80% of what users watch comes from recommendations. The system continuously learns and adapts in real-time, creating a personalized experience for each of the 260+ million subscribers worldwide.</p>
+                            <div class="example-box" style="margin-top: 15px;">
+                                <i class="fas fa-chart-line"></i> <strong>Impact:</strong> Netflix reports that their recommendation algorithm influences over 80% of all viewing activity, significantly reducing the time users spend searching for content and increasing overall satisfaction.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Machine Learning Hub</h4>
+                <p>Exploring real-world ML applications</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/LinealRegression">Linear Regression</a></li>
+                    <li><a href="/LogisticRegression">Logistic Regression</a></li>
+                    <li><a href="/linear-concepts">Linear Concepts</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Francisco Vallejos Jaramillo</p>
+                <p>University of Cundinamarca</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Machine Learning Hub. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

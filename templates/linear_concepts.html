@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Linear Regression - Basic Concepts</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <i class="fas fa-robot"></i>
+                    <span>ML<span class="brand-highlight">Hub</span></span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/page_one"><i class="fas fa-coffee"></i> Starbucks Case</a></li>
+                <li><a href="/LinealRegression"><i class="fas fa-chart-line"></i> Linear Regression</a></li>
+                <li><a href="/LogisticRegression"><i class="fas fa-chart-bar"></i> Logistic Regression</a></li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-building"></i> Use Cases
+                        <i class="fas fa-chevron-down dropdown-icon"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/use-case/netflix"><i class="fas fa-tv"></i> Netflix - Recommendations</a></li>
+                        <li><a href="/use-case/amazon"><i class="fas fa-box"></i> Amazon - Demand Prediction</a></li>
+                        <li><a href="/use-case/tesla"><i class="fas fa-car"></i> Tesla - Autonomous Driving</a></li>
+                        <li><a href="/use-case/spotify"><i class="fas fa-music"></i> Spotify - Music Discovery</a></li>
+                        <li><a href="/use-case/paypal"><i class="fas fa-shield-alt"></i> PayPal - Fraud Detection</a></li>
+                        <li><a href="/use-case/google"><i class="fas fa-search"></i> Google - Search Ranking</a></li>
+                    </ul>
+                </li>
+                <li><a href="/linear-concepts" class="active"><i class="fas fa-book-open"></i> Linear Concepts</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="header">
+                <h1>Linear Regression: Basic Concepts</h1>
+                <p>Understanding the fundamentals of linear regression in machine learning</p>
+            </div>
+            
+            <div class="main-card">
+                <!-- What is Linear Regression -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>What is Linear Regression?</h3>
+                    <p>Linear regression is a statistical method used to model the relationship between a dependent variable (target) and one or more independent variables (predictors). It assumes a linear relationship between the variables, meaning that changes in the independent variables result in proportional changes in the dependent variable.</p>
+                    <div class="formula-box">
+                        <strong>y = mx + b</strong><br>
+                        y = dependent variable (what we want to predict)<br>
+                        x = independent variable (input)<br>
+                        m = slope (rate of change)<br>
+                        b = y-intercept (value when x = 0)
+                    </div>
+                </div>
+
+                <!-- Independent vs Dependent Variables -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Variables: Independent & Dependent</h3>
+                    <p><strong>Independent Variable (X):</strong> Also called predictor or feature. This is the input variable that we use to make predictions. Example: Study hours.</p>
+                    <p><strong>Dependent Variable (Y):</strong> Also called target or response. This is what we want to predict. Example: Final grade.</p>
+                    <div class="example-box" style="margin-top: 15px;">
+                        <i class="fas fa-chalkboard-teacher"></i> <strong>Example:</strong> In our student grade prediction model, study hours (X) influence final grade (Y). We use X to predict Y.
+                    </div>
+                </div>
+
+                <!-- Training Data -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Training Data</h3>
+                    <p>Training data consists of known examples with both independent and dependent variables. The model learns from this historical data to find the best relationship between X and Y. In our example, we used 20 student records with their study hours and final grades to train the model.</p>
+                    <div class="example-box">
+                        <i class="fas fa-table"></i> <strong>Example training data:</strong><br>
+                        Student 1: Study hours = 10 → Final grade = 3.8<br>
+                        Student 2: Study hours = 15 → Final grade = 4.2<br>
+                        Student 3: Study hours = 8 → Final grade = 3.0<br>
+                        The model learns from all these examples.
+                    </div>
+                </div>
+
+                <!-- Regression Line -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Regression Line (Best Fit Line)</h3>
+                    <p>The regression line is the line that best represents the relationship between X and Y in the training data. It's calculated to minimize the distance between the line and all data points. This line allows us to predict Y for any new X value.</p>
+                    <div class="formula-box">
+                        <strong>Goal:</strong> Find the line that minimizes the sum of squared errors (SSE)<br>
+                        <strong>SSE = Σ(y_actual - y_predicted)²</strong>
+                    </div>
+                </div>
+
+                <!-- Slope and Intercept -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-chart-simple"></i>
+                    </div>
+                    <h3>Slope (m) and Intercept (b)</h3>
+                    <p><strong>Slope (m):</strong> Measures how much Y changes for each unit change in X. A positive slope means Y increases as X increases. In our model, slope = 0.18, meaning each additional hour of study increases grade by 0.18 points.</p>
+                    <p><strong>Intercept (b):</strong> The value of Y when X = 0. In our model, intercept = 1.5, meaning a student who studies 0 hours is predicted to get a grade of 1.5.</p>
+                    <div class="formula-box">
+                        <strong>Our model:</strong> Grade = 0.18 × (Study Hours) + 1.5<br>
+                        <strong>Example:</strong> 10 hours → Grade = 0.18 × 10 + 1.5 = 3.3
+                    </div>
+                </div>
+
+                <!-- Application Example -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Real-World Application Example</h3>
+                    <p><strong>Business Problem:</strong> A company wants to predict employee salary based on years of experience to ensure fair compensation.</p>
+                    <p><strong>Data:</strong> Collected salary data from 100 employees with their years of experience.</p>
+                    <p><strong>Model:</strong> Salary = m × (Years of Experience) + b</p>
+                    <p><strong>Result:</strong> After training, the model found that each additional year of experience increases salary by $5,000 on average (slope), with a base salary of $40,000 (intercept).</p>
+                    <div class="example-box">
+                        <i class="fas fa-chart-line"></i> <strong>Prediction:</strong> A candidate with 5 years of experience would be predicted to earn: $40,000 + (5 × $5,000) = $65,000
+                    </div>
+                </div>
+
+                <!-- Key Takeaways -->
+                <div class="concept-card" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left-color: #4caf50;">
+                    <div class="concept-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Key Takeaways</h3>
+                    <ul style="margin-left: 20px; color: #333;">
+                        <li>✓ Linear regression finds the best straight-line relationship between variables</li>
+                        <li>✓ Independent variables (X) are inputs, dependent variables (Y) are outputs</li>
+                        <li>✓ Training data is needed to learn the relationship</li>
+                        <li>✓ The regression line minimizes prediction errors</li>
+                        <li>✓ Slope tells us the rate of change, intercept tells us the starting point</li>
+                        <li>✓ Simple linear regression uses one variable, multiple uses several variables</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Machine Learning Hub</h4>
+                <p>Understanding the fundamentals of Machine Learning</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/LinealRegression">Try Linear Regression</a></li>
+                    <li><a href="/LogisticRegression">Try Logistic Regression</a></li>
+                    <li><a href="/linear-concepts">Linear Concepts</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Francisco Vallejos Jaramillo</p>
+                <p>University of Cundinamarca</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Machine Learning Hub. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

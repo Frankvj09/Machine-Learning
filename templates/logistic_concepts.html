@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Logistic Regression - Basic Concepts</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <i class="fas fa-robot"></i>
+                    <span>ML<span class="brand-highlight">Hub</span></span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/page_one"><i class="fas fa-coffee"></i> Starbucks Case</a></li>
+                <li><a href="/LinealRegression"><i class="fas fa-chart-line"></i> Linear Regression</a></li>
+                <li><a href="/LogisticRegression"><i class="fas fa-chart-bar"></i> Logistic Regression</a></li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-building"></i> Use Cases
+                        <i class="fas fa-chevron-down dropdown-icon"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/use-case/netflix"><i class="fas fa-tv"></i> Netflix - Recommendations</a></li>
+                        <li><a href="/use-case/amazon"><i class="fas fa-box"></i> Amazon - Demand Prediction</a></li>
+                        <li><a href="/use-case/tesla"><i class="fas fa-car"></i> Tesla - Autonomous Driving</a></li>
+                        <li><a href="/use-case/spotify"><i class="fas fa-music"></i> Spotify - Music Discovery</a></li>
+                        <li><a href="/use-case/paypal"><i class="fas fa-shield-alt"></i> PayPal - Fraud Detection</a></li>
+                        <li><a href="/use-case/google"><i class="fas fa-search"></i> Google - Search Ranking</a></li>
+                    </ul>
+                </li>
+                <li><a href="/linear-concepts"><i class="fas fa-book-open"></i> Linear Concepts</a></li>
+                <li><a href="/logistic-concepts" class="active"><i class="fas fa-chart-bar"></i> Logistic Concepts</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="header">
+                <h1>📊 Logistic Regression: Basic Concepts</h1>
+                <p>Understanding logistic regression for binary classification problems</p>
+            </div>
+            
+            <div class="main-card">
+                <!-- What is Logistic Regression -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>What is Logistic Regression?</h3>
+                    <p>Logistic regression is a statistical method used for binary classification problems. Unlike linear regression which predicts continuous values, logistic regression predicts the probability that an instance belongs to a particular class (0 or 1). It uses a sigmoid function to map any real-valued number into a value between 0 and 1.</p>
+                    <div class="formula-box">
+                        <strong>P(y=1|x) = 1 / (1 + e^-(β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ))</strong><br>
+                        Where:<br>
+                        • P(y=1|x) = probability of belonging to class 1<br>
+                        • β = coefficients (weights)<br>
+                        • x = input features<br>
+                        • e = Euler's number
+                    </div>
+                </div>
+
+                <!-- Types of Machine Learning -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Types of Machine Learning</h3>
+                    <div class="concepts-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                        <div style="background: #e8f5e9; padding: 15px; border-radius: 10px;">
+                            <i class="fas fa-chart-line" style="color: #2e7d32; font-size: 1.5em;"></i>
+                            <h4 style="margin: 10px 0;">Supervised Learning</h4>
+                            <p style="font-size: 0.9em;">Data with labels. Logistic regression is a supervised learning algorithm.</p>
+                        </div>
+                        <div style="background: #e3f2fd; padding: 15px; border-radius: 10px;">
+                            <i class="fas fa-cluster" style="color: #1976d2; font-size: 1.5em;"></i>
+                            <h4 style="margin: 10px 0;">Unsupervised Learning</h4>
+                            <p style="font-size: 0.9em;">Data without labels. Finds patterns in unlabeled data.</p>
+                        </div>
+                        <div style="background: #fff3e0; padding: 15px; border-radius: 10px;">
+                            <i class="fas fa-gamepad" style="color: #f57c00; font-size: 1.5em;"></i>
+                            <h4 style="margin: 10px 0;">Reinforcement Learning</h4>
+                            <p style="font-size: 0.9em;">Learning through rewards and penalties.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Classification vs Regression -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-chart-simple"></i>
+                    </div>
+                    <h3>Classification vs Regression</h3>
+                    <div class="formula-box" style="text-align: left;">
+                        <strong>Regression:</strong><br>
+                        • Predicts continuous values<br>
+                        • Examples: price, temperature, salary<br>
+                        • Output: any real number<br><br>
+                        <strong>Classification:</strong><br>
+                        • Predicts discrete categories<br>
+                        • Examples: spam/not spam, purchase/no purchase<br>
+                        • Output: 0 or 1 (binary) or multiple classes
+                    </div>
+                    <div class="example-box">
+                        <i class="fas fa-chart-line"></i> <strong>Our Example:</strong> Predicting whether a customer will purchase a product (binary classification)
+                    </div>
+                </div>
+
+                <!-- Sigmoid Function -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-waveform"></i>
+                    </div>
+                    <h3>The Sigmoid Function (S-Curve)</h3>
+                    <p>The sigmoid function transforms linear regression output into a probability between 0 and 1. The decision threshold is typically 0.5:</p>
+                    <div class="formula-box">
+                        <strong>f(z) = 1 / (1 + e^-z)</strong><br>
+                        Where z = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ
+                    </div>
+                    <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; margin-top: 15px;">
+                        <strong>Interpretation:</strong><br>
+                        • If probability ≥ 0.5 → predict class 1 (Purchase)<br>
+                        • If probability < 0.5 → predict class 0 (No Purchase)
+                    </div>
+                </div>
+
+                <!-- Data Preparation -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Data Preparation</h3>
+                    <ul style="margin-left: 20px; color: #555;">
+                        <li><strong>Load Data:</strong> Import dataset (CSV, Excel, etc.)</li>
+                        <li><strong>Explore Data:</strong> Check structure, statistics, missing values</li>
+                        <li><strong>Separate Variables:</strong> X (features) and y (target)</li>
+                        <li><strong>Train-Test Split:</strong> Usually 80% training, 20% testing</li>
+                        <li><strong>Standardization:</strong> Scale features to have mean=0, std=1 (recommended for logistic regression)</li>
+                    </ul>
+                    <div class="example-box" style="margin-top: 15px;">
+                        <i class="fas fa-table"></i> <strong>Our Dataset Features:</strong><br>
+                        • edad (age)<br>
+                        • ingreso_mensual (monthly income)<br>
+                        • visitas_web_mes (web visits per month)<br>
+                        • tiempo_sitio_min (time on site in minutes)<br>
+                        • compras_previas (previous purchases)<br>
+                        • descuento_usado (discount used: 0/1)<br>
+                        • target (target: 0=no purchase, 1=purchase)
+                    </div>
+                </div>
+
+                <!-- Training the Model -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Training the Model</h3>
+                    <p>The model learns coefficients (weights) that best separate the classes using Maximum Likelihood Estimation (MLE). The algorithm finds parameters that maximize the likelihood of observing the training data.</p>
+                    <div class="formula-box">
+                        <strong>Log-Likelihood Function:</strong><br>
+                        L(β) = Σ[yᵢ·log(p(xᵢ)) + (1-yᵢ)·log(1-p(xᵢ))]
+                    </div>
+                </div>
+
+                <!-- Model Evaluation: Confusion Matrix -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-table"></i>
+                    </div>
+                    <h3>Confusion Matrix</h3>
+                    <p>The confusion matrix shows the performance of the classification model:</p>
+                    <div class="formula-box" style="text-align: left;">
+                        <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                            <tr style="background: #667eea; color: white;">
+                                <th style="padding: 10px;"></th>
+                                <th style="padding: 10px;">Predicted: NO</th>
+                                <th style="padding: 10px;">Predicted: YES</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; background: #f5f5f5;"><strong>Actual: NO</strong></td>
+                                <td style="padding: 10px;">TN (True Negative)</td>
+                                <td style="padding: 10px;">FP (False Positive)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; background: #f5f5f5;"><strong>Actual: YES</strong></td>
+                                <td style="padding: 10px;">FN (False Negative)</td>
+                                <td style="padding: 10px;">TP (True Positive)</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <strong>Key Metrics:</strong><br>
+                        • <strong>Accuracy:</strong> (TP + TN) / Total<br>
+                        • <strong>Precision:</strong> TP / (TP + FP) - How many predicted positive are actually positive<br>
+                        • <strong>Recall:</strong> TP / (TP + FN) - How many actual positives were correctly identified<br>
+                        • <strong>F1-Score:</strong> 2 * (Precision * Recall) / (Precision + Recall)
+                    </div>
+                </div>
+
+                <!-- ROC Curve and AUC -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-chart-area"></i>
+                    </div>
+                    <h3>ROC Curve & AUC</h3>
+                    <p>The ROC (Receiver Operating Characteristic) curve shows the trade-off between True Positive Rate and False Positive Rate. AUC (Area Under the Curve) measures the model's ability to distinguish between classes:</p>
+                    <div class="formula-box">
+                        <strong>AUC Interpretation:</strong><br>
+                        • 0.90-1.00: Excellent classification<br>
+                        • 0.80-0.90: Good classification<br>
+                        • 0.70-0.80: Fair classification<br>
+                        • 0.60-0.70: Poor classification<br>
+                        • 0.50-0.60: No better than random
+                    </div>
+                </div>
+
+                <!-- Real-World Application -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Real-World Application: Customer Purchase Prediction</h3>
+                    <p><strong>Business Problem:</strong> E-commerce company wants to predict which customers will purchase a product to target marketing campaigns effectively.</p>
+                    <p><strong>Data Collected:</strong> Age, income, website behavior, previous purchases, discount usage.</p>
+                    <p><strong>Model Output:</strong> Probability of purchase (0-1). Customers with probability > 0.5 receive targeted promotions.</p>
+                    <div class="example-box" style="margin-top: 15px;">
+                        <i class="fas fa-chart-line"></i> <strong>Business Impact:</strong> Companies using logistic regression for customer targeting typically see 20-40% improvement in marketing ROI by focusing on high-probability customers.
+                    </div>
+                </div>
+
+                <!-- Key Takeaways -->
+                <div class="concept-card" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left-color: #4caf50;">
+                    <div class="concept-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Key Takeaways</h3>
+                    <ul style="margin-left: 20px; color: #333;">
+                        <li>✓ Logistic regression is used for binary classification (yes/no, purchase/no purchase)</li>
+                        <li>✓ Uses sigmoid function to output probabilities between 0 and 1</li>
+                        <li>✓ Decision threshold typically 0.5 (can be adjusted for business needs)</li>
+                        <li>✓ Data standardization improves model performance</li>
+                        <li>✓ Confusion matrix helps evaluate classification performance</li>
+                        <li>✓ ROC-AUC measures overall model discrimination ability</li>
+                        <li>✓ Interpretable model - coefficients show feature importance</li>
+                    </ul>
+                </div>
+
+                <!-- References -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>References & Resources</h3>
+                    <ul style="margin-left: 20px; color: #555;">
+                        <li>• <a href="https://www.ticportal.es/glosario-tic/machine-learning" target="_blank">TIC Portal - Machine Learning Glossary</a></li>
+                        <li>• <a href="https://aws.amazon.com/es/what-is/logistic-regression/" target="_blank">AWS - What is Logistic Regression?</a></li>
+                        <li>• Scikit-learn Documentation: LogisticRegression</li>
+                        <li>• "An Introduction to Statistical Learning" - James, Witten, Hastie, Tibshirani</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Machine Learning Hub</h4>
+                <p>Understanding classification with logistic regression</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/LogisticRegression">Try Logistic Regression</a></li>
+                    <li><a href="/logistic-concepts">Logistic Concepts</a></li>
+                    <li><a href="/linear-concepts">Linear Concepts</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Francisco Vallejos Jaramillo</p>
+                <p>University of Cundinamarca</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Machine Learning Hub. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

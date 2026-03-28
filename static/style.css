@@ -783,3 +783,440 @@ section {
     pointer-events: none;
     z-index: -1;
 }
+
+/* ==================== ADDITIONAL STYLES FOR USE CASES ==================== */
+
+/* Use Case Cards */
+.use-case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.use-case-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.use-case-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.use-case-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+.use-case-header i {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.use-case-header h2 {
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.use-case-body {
+    padding: 25px;
+}
+
+.use-case-section {
+    margin-bottom: 20px;
+}
+
+.use-case-section h3 {
+    color: #1e3c2c;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.use-case-section p {
+    color: #666;
+    line-height: 1.6;
+    margin-left: 28px;
+}
+
+.use-case-tag {
+    display: inline-block;
+    padding: 5px 12px;
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+/* Concepts Page */
+.concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.concept-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border-left: 5px solid #667eea;
+}
+
+.concept-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.concept-icon {
+    font-size: 2.5em;
+    color: #667eea;
+    margin-bottom: 15px;
+}
+
+.concept-card h3 {
+    color: #1e3c2c;
+    font-size: 1.4em;
+    margin-bottom: 15px;
+}
+
+.concept-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.formula-box {
+    background: #f5f7fa;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-family: monospace;
+    font-size: 1.2em;
+    margin: 20px 0;
+    border: 1px solid #e0e0e0;
+}
+
+.example-box {
+    background: #e8f5e9;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border-left: 4px solid #4caf50;
+}
+
+/* Dropdown Menu Styles (if not already present) */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    list-style: none;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.dropdown-menu li a i {
+    width: 25px;
+    color: #667eea;
+}
+
+.dropdown-menu li a:hover {
+    background: #f5f5f5;
+    color: #667eea;
+    padding-left: 25px;
+}
+
+/* O*/
+/* Additional styles for logistic regression form */
+.form-group input, .form-group select {
+    padding: 12px;
+    font-size: 1em;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+    width: 100%;
+}
+
+.form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.features-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.result-card {
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+    animation: slideIn 0.5s ease-out;
+}
+
+.result-card.passed {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+.result-card.failed {
+    background: linear-gradient(135deg, #f6d5d5 0%, #feb2b2 100%);
+}
+
+.result-title {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.result-value {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.result-value.passed {
+    color: #2e7d32;
+}
+
+.result-value.failed {
+    color: #c62828;
+}
+
+.result-info p {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+.probability-bar {
+    margin-top: 20px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 40px;
+}
+
+.probability-fill {
+    height: 100%;
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.probability-fill.passed {
+    background: linear-gradient(90deg, #4caf50, #8bc34a);
+}
+
+.probability-fill.failed {
+    background: linear-gradient(90deg, #f44336, #ff9800);
+}
+
+.prediction-note {
+    background: #fff3e0;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border-left: 4px solid #ff9800;
+}
+
+.error-message {
+    background: #ffebee;
+    color: #c62828;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-left: 4px solid #c62828;
+}
+
+.plot-container {
+    margin-top: 30px;
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.plot-container img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+/* Additional styles for logistic regression visualizations */
+/* Additional styles for logistic regression form */
+.form-group input, .form-group select {
+    padding: 12px;
+    font-size: 1em;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+    width: 100%;
+}
+
+.form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.features-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.result-card {
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+    animation: slideIn 0.5s ease-out;
+}
+
+.result-card.passed {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+.result-card.failed {
+    background: linear-gradient(135deg, #f6d5d5 0%, #feb2b2 100%);
+}
+
+.result-title {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.result-value {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.result-value.passed {
+    color: #2e7d32;
+}
+
+.result-value.failed {
+    color: #c62828;
+}
+
+.result-info p {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+.probability-bar {
+    margin-top: 20px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 40px;
+}
+
+.probability-fill {
+    height: 100%;
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.probability-fill.passed {
+    background: linear-gradient(90deg, #4caf50, #8bc34a);
+}
+
+.probability-fill.failed {
+    background: linear-gradient(90deg, #f44336, #ff9800);
+}
+
+.prediction-note {
+    background: #fff3e0;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border-left: 4px solid #ff9800;
+}
+
+.error-message {
+    background: #ffebee;
+    color: #c62828;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-left: 4px solid #c62828;
+}
+
+.plot-container {
+    margin-top: 30px;
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.plot-container img {
+    max-width: 100%;
+    border-radius: 10px;
+}

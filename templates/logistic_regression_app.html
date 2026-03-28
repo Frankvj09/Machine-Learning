@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Logistic Regression | Purchase Prediction</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <i class="fas fa-robot"></i>
+                    <span>ML<span class="brand-highlight">Hub</span></span>
+                </a>
+            </div>
+    <main class="main-content">
+        <div class="container">
+            <div class="header">
+                <h1>Logistic Regression: Purchase Prediction</h1>
+                <p>Predict whether a customer will make a purchase based on their behavior and demographics</p>
+            </div>
+            
+            <div class="main-card">
+                <!-- Stats Section -->
+                {% if stats %}
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-label">Model Accuracy</div>
+                        <div class="stat-value">{{ "%.3f"|format(stats.accuracy) }}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Precision</div>
+                        <div class="stat-value">{{ "%.3f"|format(stats.precision) }}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Recall</div>
+                        <div class="stat-value">{{ "%.3f"|format(stats.recall) }}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">F1-Score</div>
+                        <div class="stat-value">{{ "%.3f"|format(stats.f1_score) }}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Total Samples</div>
+                        <div class="stat-value">{{ stats.total_samples }}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Will Purchase</div>
+                        <div class="stat-value" style="color: #2e7d32;">{{ stats.purchase_samples }}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Will Not Purchase</div>
+                        <div class="stat-value" style="color: #c62828;">{{ stats.no_purchase_samples }}</div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Feature Importance -->
+                {% if feature_importance %}
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; margin-bottom: 30px;">
+                    <h3 style="margin-bottom: 15px; color: #1e3c2c;">
+                        <i class="fas fa-chart-simple"></i> Feature Importance (Coefficients)
+                    </h3>
+                    <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        {% for feature, coef in feature_importance %}
+                        <div style="background: white; padding: 12px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <strong>{{ feature.replace('_', ' ').title() }}</strong>
+                            <div style="font-size: 1.2em; color: {% if coef > 0 %}#2e7d32{% else %}#c62828{% endif %};">
+                                {{ "%.3f"|format(coef) }}
+                            </div>
+                            <div style="font-size: 0.8em; color: #666;">
+                                {% if coef > 0 %}↑ Positive impact{% else %}↓ Negative impact{% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Form Section -->
+                <div class="form-section">
+                    <h3 style="margin-bottom: 20px; color: #1e3c2c;">
+                        <i class="fas fa-user"></i> Customer Information
+                    </h3>
+                    <form method="POST" action="/LogisticRegression">
+                        <div class="form-group" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                            <div>
+                                <label for="edad">
+                                    <i class="fas fa-calendar-alt"></i> Age (years):
+                                </label>
+                                <input type="number" 
+                                       id="edad" 
+                                       name="edad" 
+                                       step="1" 
+                                       min="18" 
+                                       max="100" 
+                                       placeholder="e.g., 35"
+                                       value="{{ form_data.edad if form_data else '' }}"
+                                       required>
+                            </div>
+                            
+                            <div>
+                                <label for="ingreso_mensual">
+                                    <i class="fas fa-dollar-sign"></i> Monthly Income:
+                                </label>
+                                <input type="number" 
+                                       id="ingreso_mensual" 
+                                       name="ingreso_mensual" 
+                                       step="1000" 
+                                       min="0" 
+                                       max="10000000" 
+                                       placeholder="e.g., 3500000"
+                                       value="{{ form_data.ingreso_mensual if form_data else '' }}"
+                                       required>
+                            </div>
+                            
+                            <div>
+                                <label for="visitas_web_mes">
+                                    <i class="fas fa-globe"></i> Web Visits per Month:
+                                </label>
+                                <input type="number" 
+                                       id="visitas_web_mes" 
+                                       name="visitas_web_mes" 
+                                       step="1" 
+                                       min="0" 
+                                       max="50" 
+                                       placeholder="e.g., 12"
+                                       value="{{ form_data.visitas_web_mes if form_data else '' }}"
+                                       required>
+                            </div>
+                            
+                            <div>
+                                <label for="tiempo_sitio_min">
+                                    <i class="fas fa-clock"></i> Time on Site (minutes):
+                                </label>
+                                <input type="number" 
+                                       id="tiempo_sitio_min" 
+                                       name="tiempo_sitio_min" 
+                                       step="0.1" 
+                                       min="0" 
+                                       max="60" 
+                                       placeholder="e.g., 15.5"
+                                       value="{{ form_data.tiempo_sitio_min if form_data else '' }}"
+                                       required>
+                            </div>
+                            
+                            <div>
+                                <label for="compras_previas">
+                                    <i class="fas fa-shopping-cart"></i> Previous Purchases:
+                                </label>
+                                <input type="number" 
+                                       id="compras_previas" 
+                                       name="compras_previas" 
+                                       step="1" 
+                                       min="0" 
+                                       max="50" 
+                                       placeholder="e.g., 5"
+                                       value="{{ form_data.compras_previas if form_data else '' }}"
+                                       required>
+                            </div>
+                            
+                            <div>
+                                <label for="descuento_usado">
+                                    <i class="fas fa-tag"></i> Used Discount:
+                                </label>
+                                <select id="descuento_usado" name="descuento_usado" required style="padding: 12px; border-radius: 8px; border: 2px solid #e0e0e0; width: 100%;">
+                                    <option value="0" {% if form_data and form_data.descuento_usado == 0 %}selected{% endif %}>No</option>
+                                    <option value="1" {% if form_data and form_data.descuento_usado == 1 %}selected{% endif %}>Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                            <button type="submit" style="padding: 15px 40px; font-size: 1.1em;">
+                                <i class="fas fa-chart-bar"></i> Predict Purchase
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Error Message -->
+                {% if error %}
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle"></i> {{ error }}
+                    </div>
+                {% endif %}
+                
+                <!-- Result Section -->
+                {% if result %}
+                    <div class="result-card {{ 'passed' if result.purchase else 'failed' }}">
+                        <div class="result-title">
+                            <i class="fas {{ 'fa-check-circle' if result.purchase else 'fa-times-circle' }}"></i>
+                            Prediction Result:
+                        </div>
+                        <div class="result-value {{ 'passed' if result.purchase else 'failed' }}">
+                            {{ result.message }}
+                        </div>
+                        <div class="result-info">
+                            <p><strong>Confidence:</strong> {{ "%.1f"|format(result.confidence * 100) }}%</p>
+                            <p><strong>Probability of Purchase:</strong> {{ "%.1f"|format(result.probability * 100) }}%</p>
+                        </div>
+                        
+                        <!-- Probability Bar -->
+                        <div class="probability-bar">
+                            <div class="probability-fill {{ 'passed' if result.purchase else 'failed' }}" 
+                                 style="width: {{ (result.probability * 100)|round(1) }}%">
+                                {{ "%.1f"|format(result.probability * 100) }}%
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="prediction-note">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>How to interpret:</strong> 
+                        The model predicts that this customer has a {{ "%.1f"|format(result.probability * 100) }}% probability of making a purchase. 
+                        {% if result.purchase %}
+                            This customer should be targeted with marketing campaigns.
+                        {% else %}
+                            This customer may need additional incentives to purchase.
+                        {% endif %}
+                    </div>
+                {% endif %}
+                
+                <!-- Plot Section -->
+                {% if plot_url %}
+                    <div class="plot-container">
+                        <h3><i class="fas fa-chart-line"></i> Logistic Regression Visualizations</h3>
+                        <img src="data:image/png;base64,{{ plot_url }}" alt="Logistic Regression Plot">
+                        <div class="info-text">
+                            <p><strong>Top Left:</strong> Age distribution by purchase decision</p>
+                            <p><strong>Top Right:</strong> Income vs Time on Site</p>
+                            <p> <strong>Bottom Left:</strong> Confusion Matrix showing model performance</p>
+                            <p> <strong>Bottom Right:</strong> ROC Curve with AUC score</p>
+                            <p> <strong>Star:</strong> Your customer's position in the visualizations</p>
+                        </div>
+                    </div>
+                {% endif %}
+                
+                <div class="info-text" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+                    <p>💡 <strong>About Logistic Regression:</strong> Used for binary classification (purchase/no purchase)</p>
+                    <p>📊 <strong>Model trained on:</strong> {{ stats.total_samples if stats else '200' }} customer records</p>
+                    <p>🎯 <strong>Decision threshold:</strong> 0.5 probability (50% chance of purchase)</p>
+                    <p>✨ <strong>Features used:</strong> Age, Income, Web Visits, Time on Site, Previous Purchases, Discount Usage</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Machine Learning Hub</h4>
+                <p>Predicting customer behavior with logistic regression</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/LogisticRegression">Try Prediction</a></li>
+                    <li><a href="/logistic-concepts">Learn Concepts</a></li>
+                    <li><a href="/linear-concepts">Linear Concepts</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Francisco Vallejos Jaramillo</p>
+                <p>University of Cundinamarca</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Machine Learning Hub. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

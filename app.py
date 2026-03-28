@@ -1,8 +1,9 @@
 from flask import Flask, request, render_template
+from sklearn.linear_model import LogisticRegression
 import LinealRegression
+import LogisticRegression
 
 app = Flask(__name__)
-
 @app.route("/")
 def home():
     return render_template("index.html", nombre="Francisco", edad=25, items=["Manzana", "Banana", "Naranja"])  
@@ -55,6 +56,85 @@ def predict_grade():
     return render_template("lineaRegression.html", 
                          result=None,
                          stats=stats)
+
+# LogisticRegression
+
+@app.route("/LogisticRegression", methods=["GET", "POST"])
+def logistic_regression():
+    if request.method == "POST":
+        try:
+            # Obtener datos del formulario
+            features = {
+                'edad': float(request.form.get('edad', 0)),
+                'ingreso_mensual': float(request.form.get('ingreso_mensual', 0)),
+                'visitas_web_mes': float(request.form.get('visitas_web_mes', 0)),
+                'tiempo_sitio_min': float(request.form.get('tiempo_sitio_min', 0)),
+                'compras_previas': float(request.form.get('compras_previas', 0)),
+                'descuento_usado': float(request.form.get('descuento_usado', 0))
+            }
+            
+            # Validaciones básicas
+            if features['edad'] < 18 or features['edad'] > 100:
+                return render_template("logistic_regression_app.html", 
+                                     error="Age must be between 18 and 100 years")
+            
+            if features['ingreso_mensual'] < 0:
+                return render_template("logistic_regression_app.html", 
+                                     error="Income cannot be negative")
+            
+            # Obtener predicción
+            prediction = LogisticRegression.predict_purchase(features)
+            
+            # Generar gráfica
+            plot_url = LogisticRegression.generate_logistic_plot(features, prediction)
+            
+            # Obtener estadísticas del modelo
+            stats = LogisticRegression.get_model_stats()
+            feature_importance = LogisticRegression.get_feature_importance()
+            
+            return render_template("logistic_regression_app.html", 
+                                 result=prediction,
+                                 plot_url=plot_url,
+                                 form_data=features,
+                                 stats=stats,
+                                 feature_importance=feature_importance)
+            
+        except ValueError as e:
+            return render_template("logistic_regression_app.html", 
+                                 error=f"Please enter valid numbers: {str(e)}")
+        except Exception as e:
+            return render_template("logistic_regression_app.html", 
+                                 error=f"Error: {str(e)}")
+    
+    # Método GET - mostrar formulario
+    stats = LogisticRegression.get_model_stats()
+    feature_importance = LogisticRegression.get_feature_importance()
+    return render_template("logistic_regression_app.html", 
+                         result=None,
+                         stats=stats,
+                         feature_importance=feature_importance)
+#_______________________________________________________________
+
+# Use Cases Routes
+@app.route('/netflix')
+def use_case_netflix():
+    return render_template('/netflix.html')
+
+@app.route('/amazon')
+def use_case_amazon():
+    return render_template('/amazon.html')
+
+@app.route('/tesla')
+def tesla():
+    return render_template('/tesla.html')
+
+@app.route('/linear-concepts')
+def linear_concepts():
+    return render_template('linear_concepts.html')
+
+@app.route('/logistic-concepts')
+def logistic_concepts():
+    return render_template('logistic_concepts.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
