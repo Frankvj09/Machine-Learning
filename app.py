@@ -11,7 +11,8 @@ def home():
 @app.route("/page_one")
 def page_one():
     return render_template("pagina_one.html", nombre="Supervisado")
-
+#_______________________________________________________________
+#Regresión Lineal
 @app.route("/LinealRegression", methods=["GET", "POST"])
 def predict_grade():
     if request.method == "POST":
@@ -56,6 +57,7 @@ def predict_grade():
     return render_template("lineaRegression.html", 
                          result=None,
                          stats=stats)
+#_______________________________________________________________
 
 # LogisticRegression
 
@@ -113,7 +115,36 @@ def logistic_regression():
                          result=None,
                          stats=stats,
                          feature_importance=feature_importance)
-#_______________________________________________________________
+#____________________________________________________________
+# Regresion Model KNN
+
+@app.route('/knn-concepts')
+def knn_concepts():
+    return render_template('knn_concepts.html')
+
+from KNN import predecir_knn
+
+@app.route('/knn', methods=['GET', 'POST'])
+def knn():
+    resultado = None
+    probabilidad = None
+    grafica = None
+
+    if request.method == 'POST':
+        edad = float(request.form['edad'])
+        ingresos = float(request.form['ingresos'])
+
+        pred, prob, ruta = predecir_knn(edad, ingresos)
+
+        resultado = "Comprará" if pred == 1 else "No comprará"
+        probabilidad = prob
+        grafica = ruta
+
+    return render_template('knn.html',
+                           resultado=resultado,
+                           probabilidad=probabilidad,
+                           grafica=grafica)
+# _________________________________________________________________________
 
 # Use Cases Routes
 @app.route('/netflix')

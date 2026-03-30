@@ -8,14 +8,8 @@
     <title>Logistic Regression | Purchase Prediction</title>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="/" class="brand-link">
-                    <i class="fas fa-robot"></i>
-                    <span>ML<span class="brand-highlight">Hub</span></span>
-                </a>
-            </div>
+    {% include 'navbar.html' %}
+    
     <main class="main-content">
         <div class="container">
             <div class="header">
@@ -240,10 +234,10 @@
                 {% endif %}
                 
                 <div class="info-text" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
-                    <p>💡 <strong>About Logistic Regression:</strong> Used for binary classification (purchase/no purchase)</p>
-                    <p>📊 <strong>Model trained on:</strong> {{ stats.total_samples if stats else '200' }} customer records</p>
-                    <p>🎯 <strong>Decision threshold:</strong> 0.5 probability (50% chance of purchase)</p>
-                    <p>✨ <strong>Features used:</strong> Age, Income, Web Visits, Time on Site, Previous Purchases, Discount Usage</p>
+                    <p> <strong>About Logistic Regression:</strong> Used for binary classification (purchase/no purchase)</p>
+                    <p><strong>Model trained on:</strong> {{ stats.total_samples if stats else '200' }} customer records</p>
+                    <p><strong>Decision threshold:</strong> 0.5 probability (50% chance of purchase)</p>
+                    <p><strong>Features used:</strong> Age, Income, Web Visits, Time on Site, Previous Purchases, Discount Usage</p>
                 </div>
             </div>
         </div>

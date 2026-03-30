@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KNN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="LinealRegression">
+
+{% include 'navbar.html' %}
+
+<div class="container">
+
+    <div class="header">
+        <h1>KNN - Clasificación</h1>
+        <p>Predicción basada en vecinos más cercanos</p>
+    </div>
+
+    <div class="main-card">
+
+        <div class="form-section">
+            <form method="POST" class="form-group">
+
+                <label>Edad</label>
+                <input type="number" name="edad" required>
+
+                <label>Ingresos</label>
+                <input type="number" name="ingresos" required>
+
+                <button type="submit">Predecir</button>
+
+            </form>
+        </div>
+
+        {% if resultado %}
+        <div class="result-card">
+            <div class="result-title">Resultado</div>
+            <div class="result-value">{{ resultado }}</div>
+
+            <div class="result-info">
+                Probabilidad No compra: {{ probabilidad[0] }} <br>
+                Probabilidad Compra: {{ probabilidad[1] }}
+            </div>
+        </div>
+
+        <div class="plot-container">
+            <h3>Gráfica del modelo</h3>
+            <img src="{{ url_for('static', filename='knn_plot.png') }}">
+        </div>
+        {% endif %}
+
+        <p class="info-text">
+            KNN clasifica el dato según los vecinos más cercanos en el espacio de características.
+        </p>
+
+    </div>
+</div>
+
+</body>
+</html>

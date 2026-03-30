@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNN - Basic Concepts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    {% include 'navbar.html' %}
+
+    <main class="main-content">
+        <div class="container">
+
+            <div class="header">
+                <h1>K-Nearest Neighbors (KNN): Basic Concepts</h1>
+                <p>Understanding classification through nearest data points</p>
+            </div>
+
+            <div class="main-card">
+
+                <!-- What is KNN -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>What is K-Nearest Neighbors (KNN)?</h3>
+                    <p>
+                        K-Nearest Neighbors (KNN) is a supervised machine learning algorithm
+                        used mainly for <strong>classification</strong> and sometimes for regression.
+                    </p>
+                    <p>
+                        It classifies a new data point based on the class of its closest neighbors
+                        in the dataset.
+                    </p>
+                    <p>
+                        The algorithm does not build an explicit mathematical model.
+                        Instead, it stores the training data and uses distance calculations
+                        to make predictions.
+                    </p>
+
+                    <div class="formula-box">
+                        <strong>Prediction = Majority class of the K nearest neighbors</strong>
+                    </div>
+                </div>
+
+                <!-- How it Works -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>How Does KNN Work?</h3>
+                    <p>
+                        The model calculates the distance between a new data point and all
+                        training points.
+                    </p>
+                    <p>
+                        Then it selects the <strong>K closest neighbors</strong> and assigns
+                        the class that appears most frequently.
+                    </p>
+
+                    <div class="formula-box">
+                        <strong>Euclidean Distance:</strong><br><br>
+                        d = √((x₂ - x₁)² + (y₂ - y₁)²)
+                    </div>
+
+                    <p>
+                        For example, if K = 3, the algorithm checks the 3 closest points.
+                    </p>
+                </div>
+
+                <!-- Features and Target -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <h3>Features and Target Variable</h3>
+                    <p>
+                        KNN uses input variables (features) to determine similarity.
+                    </p>
+
+                    <p>
+                        Example:
+                    </p>
+
+                    <div class="example-box">
+                        <i class="fas fa-table"></i>
+                        <strong>Customer Classification Example</strong><br>
+                        • Age<br>
+                        • Income<br>
+                        • Purchase history<br><br>
+                        <strong>Target:</strong><br>
+                        • 0 = No purchase<br>
+                        • 1 = Purchase
+                    </div>
+                </div>
+
+                <!-- Importance of K -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-sort-numeric-up"></i>
+                    </div>
+                    <h3>Importance of K Value</h3>
+                    <p>
+                        The value of K determines how many neighbors are considered.
+                    </p>
+
+                    <div class="formula-box">
+                        <strong>Example:</strong><br>
+                        K = 3 → uses 3 nearest neighbors<br>
+                        K = 5 → uses 5 nearest neighbors
+                    </div>
+
+                    <p>
+                        A very small K may cause overfitting,
+                        while a large K may reduce model sensitivity.
+                    </p>
+                </div>
+
+                <!-- Advantages -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-thumbs-up"></i>
+                    </div>
+                    <h3>Advantages and Limitations</h3>
+
+                    <p><strong>Advantages:</strong></p>
+                    <ul style="margin-left: 20px; color: #555;">
+                        <li>Easy to understand</li>
+                        <li>Simple implementation</li>
+                        <li>No training phase complexity</li>
+                    </ul>
+
+                    <p><strong>Limitations:</strong></p>
+                    <ul style="margin-left: 20px; color: #555;">
+                        <li>Slow with large datasets</li>
+                        <li>Sensitive to noisy data</li>
+                        <li>Requires feature scaling</li>
+                    </ul>
+                </div>
+
+                <!-- Real World Example -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Real-World Example</h3>
+                    <p>
+                        KNN is widely used in recommendation systems,
+                        fraud detection, medical diagnosis, and customer segmentation.
+                    </p>
+
+                    <div class="example-box">
+                        <i class="fas fa-chart-pie"></i>
+                        <strong>Example:</strong><br>
+                        E-commerce platforms classify customers based on similar
+                        buying behavior.
+                    </div>
+                </div>
+
+                <!-- Graph Block -->
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3>KNN Visualization Graph</h3>
+                    <p>
+                        The following image represents how KNN classifies a new data point
+                        according to its nearest neighbors.
+                    </p>
+
+                    <div class="plot-container">
+                        <img src="{{ url_for('static', filename='KNN.png') }}" alt="KNN Graph">
+                    </div>
+                </div>
+
+                <!-- Key Takeaways -->
+                <div class="concept-card" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left-color: #4caf50;">
+                    <div class="concept-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Key Takeaways</h3>
+                    <ul style="margin-left: 20px; color: #333;">
+                        <li>✓ KNN is a supervised classification algorithm</li>
+                        <li>✓ Uses nearest neighbors for prediction</li>
+                        <li>✓ Depends on distance calculation</li>
+                        <li>✓ K value is crucial</li>
+                        <li>✓ Excellent for classification tasks</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
