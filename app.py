@@ -2,6 +2,7 @@ from flask import Flask, request, render_template
 from sklearn.linear_model import LogisticRegression
 import LinealRegression
 import LogisticRegression
+import Clustering
 
 app = Flask(__name__)
 @app.route("/")
@@ -11,6 +12,7 @@ def home():
 @app.route("/page_one")
 def page_one():
     return render_template("pagina_one.html", nombre="Supervisado")
+
 #_______________________________________________________________
 #Regresión Lineal
 @app.route("/LinealRegression", methods=["GET", "POST"])
@@ -146,7 +148,27 @@ def knn():
                            grafica=grafica)
 # _________________________________________________________________________
 
-# Use Cases Routes
+#____________________ Routes clustering _________________________________
+
+@app.route('/clustering-concepts')
+def clustering_concepts():
+    return render_template('clustering_concepts.html')
+ 
+@app.route('/clustering-manual')
+def clustering_manual():
+    return render_template('clustering_manual.html')
+ 
+@app.route('/clustering-app')
+def clustering_app():
+    summary, centroids, sample, plot_b64, total = Clustering.get_cluster_data()
+    return render_template('clustering_app.html',
+                           summary=summary,
+                           centroids=centroids,
+                           sample=sample,
+                           plot_b64=plot_b64,
+                           total=total)
+
+#________________________ Use Cases Routes _____________________________
 @app.route('/netflix')
 def use_case_netflix():
     return render_template('/netflix.html')

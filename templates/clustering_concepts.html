@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     {% include 'navbar.html' %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsupervised Learning — Concepts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* ── Page Layout ── */
+        body { background: #f0f4f8; font-family: 'Segoe UI', sans-serif; margin: 0; }
+        .page-hero {
+            background: linear-gradient(135deg, #1A2F4E 0%, #2980B9 100%);
+            color: white; padding: 56px 0 40px; text-align: center;
+        }
+        .page-hero h1 { font-size: 2.6rem; margin: 0 0 10px; font-weight: 700; letter-spacing: 1px; }
+        .page-hero p  { font-size: 1.1rem; opacity: .85; margin: 0; }
+        .breadcrumb   { font-size: .85rem; opacity: .7; margin-bottom: 14px; }
+        .breadcrumb a { color: #AED6F1; text-decoration: none; }
+
+        /* ── Container ── */
+        .content-wrapper { max-width: 960px; margin: 40px auto; padding: 0 20px 60px; }
+
+        /* ── Cards ── */
+        .concept-card {
+            background: white; border-radius: 12px; padding: 32px 36px;
+            margin-bottom: 28px; box-shadow: 0 2px 12px rgba(0,0,0,.08);
+            border-left: 5px solid #2980B9;
+            transition: transform .2s, box-shadow .2s;
+        }
+        .concept-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.12); }
+        .concept-card.red    { border-left-color: #E74C3C; }
+        .concept-card.green  { border-left-color: #27AE60; }
+        .concept-card.purple { border-left-color: #8E44AD; }
+        .concept-card.orange { border-left-color: #E67E22; }
+        .concept-card.teal   { border-left-color: #16A085; }
+
+        .concept-card h2 {
+            font-size: 1.35rem; color: #1A2F4E; margin: 0 0 12px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .concept-card h2 .icon {
+            width: 36px; height: 36px; border-radius: 8px;
+            background: #EBF5FB; display: flex; align-items: center;
+            justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+        }
+        .concept-card p { color: #4a5568; line-height: 1.75; margin: 0 0 10px; }
+
+        /* ── Formula box ── */
+        .formula-box {
+            background: #EBF5FB; border: 1px solid #AED6F1;
+            border-radius: 8px; padding: 16px 20px; margin: 14px 0;
+            font-family: 'Courier New', monospace; font-size: 1rem;
+            color: #1A2F4E; text-align: center; font-weight: bold;
+        }
+
+        /* ── Steps list ── */
+        .steps-list { list-style: none; padding: 0; margin: 12px 0 0; }
+        .steps-list li {
+            display: flex; align-items: flex-start; gap: 14px;
+            padding: 10px 0; border-bottom: 1px solid #f0f4f8; color: #4a5568;
+        }
+        .steps-list li:last-child { border: none; }
+        .step-num {
+            min-width: 28px; height: 28px; background: #2980B9; color: white;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-weight: bold; font-size: .85rem; flex-shrink: 0;
+        }
+
+        /* ── Apps grid ── */
+        .apps-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px; margin-top: 14px;
+        }
+        .app-item {
+            background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px;
+            padding: 14px 16px; display: flex; align-items: center; gap: 10px;
+            font-size: .95rem; color: #2d3748; font-weight: 500;
+        }
+        .app-item span.dot {
+            width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+        }
+
+        /* ── Section nav ── */
+        .toc-bar {
+            background: white; border-radius: 10px; padding: 16px 24px;
+            margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,.06);
+            display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+        }
+        .toc-bar span { font-size: .85rem; color: #718096; font-weight: 600; }
+        .toc-bar a {
+            font-size: .85rem; color: #2980B9; text-decoration: none;
+            background: #EBF5FB; padding: 4px 12px; border-radius: 20px;
+            transition: background .2s;
+        }
+        .toc-bar a:hover { background: #2980B9; color: white; }
+    </style>
+</head>
+<body>
+{% include 'navbar.html' %}
+
+<div class="page-hero">
+    <div class="breadcrumb">
+        <a href="/">Home</a> › Unsupervised ML › Concepts
+    </div>
+    <h1>Unsupervised Learning</h1>
+    <p>Core concepts: Clustering, K-Means, Distance Metrics & Convergence</p>
+</div>
+
+<div class="content-wrapper">
+
+    <!-- Table of Contents -->
+    <div class="toc-bar">
+        <span>Jump to:</span>
+        <a href="#unsupervised">Unsupervised Learning</a>
+        <a href="#clustering">Clustering</a>
+        <a href="#kmeans">K-Means</a>
+        <a href="#centroids">Centroids</a>
+        <a href="#distance">Distance Metrics</a>
+        <a href="#iterative">Iterative Process</a>
+        <a href="#variance">Variance</a>
+        <a href="#realworld">Real-World Apps</a>
+    </div>
+
+    <!-- 1. Unsupervised Learning -->
+    <div class="concept-card" id="unsupervised">
+        <h2><div class="icon">🔍</div> What is Unsupervised Learning?</h2>
+        <p>
+            <strong>Unsupervised learning</strong> is a type of machine learning where the algorithm
+            learns patterns from <em>unlabeled data</em> — data without predefined categories or
+            correct answers. Unlike supervised learning, there is no teacher guiding the process.
+            The algorithm explores the data's inherent structure on its own.
+        </p>
+        <p>
+            The goal is to discover hidden patterns, groupings, or representations within the data.
+            Common tasks include <strong>clustering</strong> (grouping similar items), dimensionality
+            reduction (compressing features), and anomaly detection.
+        </p>
+        <div class="formula-box">
+            Supervised:   f(X) → Y  (labeled)
+            Unsupervised: f(X) → ?  (structure discovery)
+        </div>
+    </div>
+
+    <!-- 2. Clustering -->
+    <div class="concept-card red" id="clustering">
+        <h2><div class="icon">🔴</div> What is Clustering?</h2>
+        <p>
+            <strong>Clustering</strong> is the process of grouping data points so that objects in the
+            same group (cluster) are more <em>similar</em> to each other than to those in other groups.
+            Similarity is typically measured using a distance metric.
+        </p>
+        <p>
+            Clustering is widely used for customer segmentation, image compression, document grouping,
+            and biological taxonomy. There is no ground truth — the algorithm defines what "similar" means.
+        </p>
+    </div>
+
+    <!-- 3. K-Means -->
+    <div class="concept-card green" id="kmeans">
+        <h2><div class="icon">⚙️</div> What is K-Means?</h2>
+        <p>
+            <strong>K-Means</strong> is the most popular clustering algorithm. It partitions
+            <em>n</em> observations into <em>K</em> clusters, where each observation belongs to the
+            cluster with the nearest <strong>centroid</strong> (cluster mean).
+        </p>
+        <p>
+            The algorithm minimizes the <strong>within-cluster sum of squares (WCSS)</strong>,
+            also called inertia:
+        </p>
+        <div class="formula-box">WCSS = Σ Σ || x_i − μ_k ||²</div>
+        <p>where μ_k is the centroid of cluster k and x_i is a data point assigned to that cluster.</p>
+    </div>
+
+    <!-- 4. Centroids -->
+    <div class="concept-card purple" id="centroids">
+        <h2><div class="icon">🎯</div> Centroids</h2>
+        <p>
+            A <strong>centroid</strong> is the arithmetic mean of all data points belonging to a cluster.
+            It acts as the "center" or representative point of the cluster. Centroids are not necessarily
+            actual data points — they are computed values.
+        </p>
+        <div class="formula-box">μ_k = (1 / |S_k|) · Σ x_i  for all x_i in cluster k</div>
+        <p>
+            At each iteration, centroids are <em>recalculated</em> based on the current cluster assignments,
+            causing them to shift toward the true center of each group.
+        </p>
+    </div>
+
+    <!-- 5. Distance Metrics -->
+    <div class="concept-card orange" id="distance">
+        <h2><div class="icon">📏</div> Distance Metrics — Euclidean Distance</h2>
+        <p>
+            K-Means uses <strong>Euclidean distance</strong> to measure similarity between a data point
+            and a centroid. For two points P = (x₁, y₁) and C = (x₂, y₂):
+        </p>
+        <div class="formula-box">d(P, C) = √[ (x₁−x₂)² + (y₁−y₂)² ]</div>
+        <p>
+            For <em>n</em> features: d(P, C) = √[ Σ (P_i − C_i)² ]
+        </p>
+        <p>
+            ⚠️ <strong>Important:</strong> When features have different scales (e.g., age 1–65 vs.
+            income 1,000–100,000), the larger-scale feature dominates the distance. Always
+            <em>normalize or standardize</em> your data before applying K-Means.
+        </p>
+    </div>
+
+    <!-- 6. Iterative Process -->
+    <div class="concept-card teal" id="iterative">
+        <h2><div class="icon">🔄</div> Iterative Process</h2>
+        <ul class="steps-list">
+            <li><div class="step-num">1</div><div><strong>Initialize:</strong> Randomly place K centroids in the feature space (or select K data points).</div></li>
+            <li><div class="step-num">2</div><div><strong>Assign:</strong> Calculate the distance from each data point to every centroid. Assign each point to the nearest centroid.</div></li>
+            <li><div class="step-num">3</div><div><strong>Update:</strong> Recalculate each centroid as the mean of all points assigned to it.</div></li>
+            <li><div class="step-num">4</div><div><strong>Check:</strong> If centroids have moved, go back to step 2. If centroids are stable (or change is below threshold), stop.</div></li>
+            <li><div class="step-num">5</div><div><strong>Result:</strong> The algorithm has converged to a local minimum of the WCSS objective.</div></li>
+        </ul>
+    </div>
+
+    <!-- 7. Variance & Convergence -->
+    <div class="concept-card" id="variance">
+        <h2><div class="icon">📉</div> Variance and Convergence</h2>
+        <p>
+            <strong>Variance</strong> (or WCSS/inertia) measures how compact the clusters are.
+            A lower variance means data points are closer to their centroids — tighter, more
+            defined clusters.
+        </p>
+        <div class="formula-box">Variance = (1/n) · Σ d(x_i, μ_k(i))²</div>
+        <p>
+            K-Means is <strong>guaranteed to converge</strong> because: (1) there are finite possible
+            cluster assignments, and (2) each step (assign + update) either decreases WCSS or keeps it
+            the same. However, it may converge to a <em>local minimum</em>, not the global one.
+            Running the algorithm multiple times with different initializations (K-Means++) helps.
+        </p>
+    </div>
+
+    <!-- 8. Real-World Applications -->
+    <div class="concept-card red" id="realworld">
+        <h2><div class="icon">🌍</div> Real-World Applications</h2>
+        <p>K-Means clustering is used across many industries:</p>
+        <div class="apps-grid">
+            <div class="app-item"><span class="dot" style="background:#E74C3C"></span>Customer Segmentation</div>
+            <div class="app-item"><span class="dot" style="background:#3498DB"></span>Image Compression</div>
+            <div class="app-item"><span class="dot" style="background:#27AE60"></span>Document Clustering</div>
+            <div class="app-item"><span class="dot" style="background:#E67E22"></span>Anomaly Detection</div>
+            <div class="app-item"><span class="dot" style="background:#8E44AD"></span>Recommendation Systems</div>
+            <div class="app-item"><span class="dot" style="background:#16A085"></span>Medical Diagnosis</div>
+            <div class="app-item"><span class="dot" style="background:#2C3E50"></span>Social Network Analysis</div>
+            <div class="app-item"><span class="dot" style="background:#D35400"></span>Supply Chain Optimization</div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
