@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     {% include 'navbar.html' %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Means Clustering App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body { background: #f0f4f8; font-family: 'Segoe UI', sans-serif; margin: 0; }
+
+        .page-hero {
+            background: linear-gradient(135deg, #1A2F4E 0%, #27AE60 100%);
+            color: white; padding: 56px 0 40px; text-align: center;
+        }
+        .page-hero h1 { font-size: 2.4rem; margin: 0 0 10px; font-weight: 700; }
+        .page-hero p  { font-size: 1.05rem; opacity: .85; margin: 0; }
+        .breadcrumb   { font-size: .85rem; opacity: .7; margin-bottom: 14px; }
+        .breadcrumb a { color: #A9DFBF; text-decoration: none; }
+
+        .content-wrapper { max-width: 1060px; margin: 40px auto; padding: 0 20px 60px; }
+
+        /* ── Cards ── */
+        .section-card {
+            background: white; border-radius: 12px; padding: 28px 32px;
+            margin-bottom: 28px; box-shadow: 0 2px 12px rgba(0,0,0,.07);
+        }
+        .section-title {
+            font-size: 1.25rem; font-weight: 700; color: #1A2F4E;
+            border-left: 5px solid #27AE60; padding-left: 14px;
+            margin: 0 0 18px;
+        }
+        .section-title.blue  { border-color: #2980B9; }
+        .section-title.red   { border-color: #E74C3C; }
+        .section-title.orange{ border-color: #E67E22; }
+
+        p.desc { color: #4a5568; line-height: 1.75; margin: 0 0 10px; }
+
+        /* ── Stats strip ── */
+        .stats-strip {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 14px; margin-bottom: 28px;
+        }
+        .stat-card {
+            background: white; border-radius: 10px; padding: 18px 20px;
+            text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.06);
+            border-top: 4px solid #27AE60;
+        }
+        .stat-card.b { border-top-color: #2980B9; }
+        .stat-card.r { border-top-color: #E74C3C; }
+        .stat-card.o { border-top-color: #E67E22; }
+        .stat-num   { font-size: 2rem; font-weight: 800; color: #1A2F4E; }
+        .stat-label { font-size: .8rem; color: #718096; margin-top: 4px; }
+
+        /* ── Tables ── */
+        .data-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+        .data-table thead tr { background: #1A2F4E; color: white; }
+        .data-table thead th { padding: 9px 12px; text-align: center; font-weight: 600; }
+        .data-table tbody tr:nth-child(odd)  { background: #F8F9FA; }
+        .data-table tbody tr:nth-child(even) { background: white; }
+        .data-table tbody td { padding: 8px 12px; text-align: center; color: #2d3748; border-bottom: 1px solid #e9ecef; }
+        .data-table tbody tr:hover { background: #EAFAF1; }
+
+        .badge-1 { background: #E74C3C; color: white; padding: 2px 10px; border-radius: 12px; font-size: .78rem; font-weight: 700; }
+        .badge-2 { background: #2980B9; color: white; padding: 2px 10px; border-radius: 12px; font-size: .78rem; font-weight: 700; }
+        .badge-3 { background: #27AE60; color: white; padding: 2px 10px; border-radius: 12px; font-size: .78rem; font-weight: 700; }
+
+        /* ── Cluster summary cards ── */
+        .clusters-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 10px; }
+        .cluster-card {
+            border-radius: 10px; padding: 20px 22px;
+            border: 2px solid #e2e8f0;
+        }
+        .cluster-card.c1 { background: #FEF5F5; border-color: #E74C3C; }
+        .cluster-card.c2 { background: #EBF5FB; border-color: #2980B9; }
+        .cluster-card.c3 { background: #EAFAF1; border-color: #27AE60; }
+        .cluster-card h4 { margin: 0 0 12px; font-size: 1rem; }
+        .cluster-card h4.c1 { color: #C0392B; }
+        .cluster-card h4.c2 { color: #1A5276; }
+        .cluster-card h4.c3 { color: #1E8449; }
+        .cluster-stat { display: flex; justify-content: space-between; padding: 5px 0;
+                        border-bottom: 1px solid rgba(0,0,0,.06); font-size: .88rem; color: #4a5568; }
+        .cluster-stat:last-child { border: none; }
+        .cluster-stat strong { color: #1A2F4E; }
+
+        /* ── Plot box ── */
+        .plot-box {
+            text-align: center; background: #F8F9FA; border-radius: 10px;
+            padding: 16px; border: 1px solid #e2e8f0;
+        }
+        .plot-box img { max-width: 100%; border-radius: 8px; }
+        .plot-caption { font-size: .82rem; color: #718096; margin-top: 8px; font-style: italic; }
+
+        /* ── Interpretation ── */
+        .interp-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 14px; }
+        .interp-item {
+            border-radius: 10px; padding: 16px 18px; border: 1px solid #e2e8f0;
+            background: white;
+        }
+        .interp-item h4 { margin: 0 0 8px; font-size: .95rem; }
+        .interp-item p  { margin: 0; font-size: .85rem; color: #4a5568; line-height: 1.6; }
+    </style>
+</head>
+<body>
+{% include 'navbar.html' %}
+
+<div class="page-hero">
+    <div class="breadcrumb">
+        <a href="/">Home</a> › Unsupervised ML › Clustering App
+    </div>
+    <h1>🛒 Customer Segmentation App</h1>
+    <p>K-Means clustering on {{ total }} customer records — Scikit-learn powered</p>
+</div>
+
+<div class="content-wrapper">
+
+    <!-- Context -->
+    <div class="section-card">
+        <h2 class="section-title blue">Dataset Context</h2>
+        <p class="desc">
+            This application segments <strong>{{ total }} retail customers</strong> using K-Means (K=3).
+            Each customer is described by three features: <em>age</em>, <em>annual income</em>, and
+            <em>monthly spending</em>. The goal is to identify natural customer groups to enable
+            targeted marketing strategies.
+        </p>
+        <p class="desc">
+            <strong>Preprocessing:</strong> All features are standardized using <code>StandardScaler</code>
+            (zero mean, unit variance) before training, ensuring no single feature dominates the distance
+            calculations. The model uses <code>KMeans(n_clusters=3, n_init=10, random_state=42)</code>.
+        </p>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px;">
+            <div style="background:#EBF5FB;border-radius:8px;padding:14px;text-align:center;">
+                <div style="font-size:.85rem;color:#718096;margin-bottom:4px;">Feature 1</div>
+                <div style="font-weight:700;color:#1A2F4E;">Age (years)</div>
+                <div style="font-size:.8rem;color:#718096;">Range: 18–68</div>
+            </div>
+            <div style="background:#EAFAF1;border-radius:8px;padding:14px;text-align:center;">
+                <div style="font-size:.85rem;color:#718096;margin-bottom:4px;">Feature 2</div>
+                <div style="font-weight:700;color:#1A2F4E;">Annual Income ($)</div>
+                <div style="font-size:.8rem;color:#718096;">Range: $1,000–$12,000</div>
+            </div>
+            <div style="background:#FEF9E7;border-radius:8px;padding:14px;text-align:center;">
+                <div style="font-size:.85rem;color:#718096;margin-bottom:4px;">Feature 3</div>
+                <div style="font-weight:700;color:#1A2F4E;">Monthly Spend ($)</div>
+                <div style="font-size:.8rem;color:#718096;">Range: $300–$6,500</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="stats-strip">
+        <div class="stat-card">
+            <div class="stat-num">{{ total }}</div>
+            <div class="stat-label">Total Customers</div>
+        </div>
+        <div class="stat-card b">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Clusters (K=3)</div>
+        </div>
+        <div class="stat-card r">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Features Used</div>
+        </div>
+        <div class="stat-card o">
+            <div class="stat-num">10</div>
+            <div class="stat-label">Initializations (n_init)</div>
+        </div>
+    </div>
+
+    <!-- Cluster Summary -->
+    <div class="section-card">
+        <h2 class="section-title">Cluster Summary</h2>
+        <div class="clusters-row">
+            {% for row in summary %}
+            <div class="cluster-card c{{ row.cluster }}">
+                <h4 class="c{{ row.cluster }}">
+                    {% if row.cluster == 1 %}🔴{% elif row.cluster == 2 %}🔵{% else %}🟢{% endif %}
+                    Cluster {{ row.cluster }}: {{ row.segment }}
+                </h4>
+                <div class="cluster-stat"><span>Customers</span><strong>{{ row.count }}</strong></div>
+                <div class="cluster-stat"><span>Avg. Age</span><strong>{{ "%.1f"|format(row.avg_age) }} yrs</strong></div>
+                <div class="cluster-stat"><span>Avg. Income</span><strong>${{ "{:,.0f}".format(row.avg_income) }}</strong></div>
+                <div class="cluster-stat"><span>Avg. Spend</span><strong>${{ "{:,.0f}".format(row.avg_spend) }}/mo</strong></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Centroids -->
+    <div class="section-card">
+        <h2 class="section-title red">Cluster Centroids</h2>
+        <p class="desc">Centroids in the original (non-scaled) feature space after inverse transformation.</p>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Cluster</th><th>Label</th><th>Centroid Age</th>
+                    <th>Centroid Income ($)</th><th>Centroid Spend ($)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in centroids %}
+                <tr>
+                    <td><span class="badge-{{ c.cluster }}">C{{ c.cluster }}</span></td>
+                    <td>{{ c.label }}</td>
+                    <td>{{ "%.2f"|format(c.age) }} yrs</td>
+                    <td>${{ "{:,.2f}".format(c.income) }}</td>
+                    <td>${{ "{:,.2f}".format(c.spend) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Sample Table -->
+    <div class="section-card">
+        <h2 class="section-title orange">Sample Cluster Assignments</h2>
+        <p class="desc">Showing 8 representative customers per cluster (24 of {{ total }} total).</p>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Customer ID</th><th>Age</th><th>Annual Income ($)</th>
+                    <th>Monthly Spend ($)</th><th>Cluster</th><th>Segment</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in sample %}
+                <tr>
+                    <td><strong>{{ row.customer_id }}</strong></td>
+                    <td>{{ row.age }}</td>
+                    <td>${{ "{:,.0f}".format(row.annual_income) }}</td>
+                    <td>${{ "{:,.0f}".format(row.monthly_spend) }}</td>
+                    <td><span class="badge-{{ row.cluster }}">C{{ row.cluster }}</span></td>
+                    <td>{{ row.segment }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Visualization -->
+    <div class="section-card">
+        <h2 class="section-title blue">Cluster Visualization</h2>
+        <div class="plot-box">
+            <img src="data:image/png;base64,{{ plot_b64 }}" alt="K-Means Scatter Plot">
+            <p class="plot-caption">Scatter plots showing cluster assignments and centroids (✕) for
+            Age vs. Annual Income and Income vs. Monthly Spend</p>
+        </div>
+    </div>
+
+    <!-- Interpretation -->
+    <div class="section-card">
+        <h2 class="section-title">Results Interpretation</h2>
+        <div class="interp-grid">
+            <div class="interp-item" style="border-color:#E74C3C;">
+                <h4 style="color:#C0392B;">🔴 Cluster 1 — Young / Low Income</h4>
+                <p>Young customers (~24 yrs) with lower income and spending. Respond well to
+                   discounts, entry-level products, and loyalty reward programs.</p>
+            </div>
+            <div class="interp-item" style="border-color:#2980B9;">
+                <h4 style="color:#1A5276;">🔵 Cluster 2 — Middle-Aged / Mid Income</h4>
+                <p>Core customer segment (~40 yrs). Stable income and moderate spending.
+                   Target with family products, bundles, and membership programs.</p>
+            </div>
+            <div class="interp-item" style="border-color:#27AE60;">
+                <h4 style="color:#1E8449;">🟢 Cluster 3 — Senior / High Income</h4>
+                <p>High-value customers (~57 yrs) with significant disposable income.
+                   Target with premium products, exclusive services, and personalized experiences.</p>
+            </div>
+        </div>
+        <div style="background:#F8F9FA;border-radius:8px;padding:16px 20px;margin-top:16px;border-left:4px solid #1A2F4E;">
+            <strong style="color:#1A2F4E;">Business Insight:</strong>
+            <span style="color:#4a5568;font-size:.9rem;"> K-Means effectively segmented customers into 3 actionable groups.
+            Cluster 3 customers spend the most despite representing a smaller portion of the base —
+            investing in retention strategies for this segment will yield the highest ROI.
+            Cluster 1 offers growth potential through conversion to higher spending tiers over time.</span>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
