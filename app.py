@@ -3,6 +3,7 @@ from sklearn.linear_model import LogisticRegression
 import LinealRegression
 import LogisticRegression
 import Clustering
+import os
 
 app = Flask(__name__)
 @app.route("/")
@@ -189,5 +190,8 @@ def linear_concepts():
 def logistic_concepts():
     return render_template('logistic_concepts.html')
 
+import os
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
