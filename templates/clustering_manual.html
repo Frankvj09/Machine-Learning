@@ -6,112 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>K-Means Manual Exercise</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        body { background: #f0f4f8; font-family: 'Segoe UI', sans-serif; margin: 0; }
-
-        .page-hero {
-            background: linear-gradient(135deg, #1A2F4E 0%, #7ed6f9 100%);
-            color: white; padding: 56px 0 40px; text-align: center;
-        }
-        .page-hero h1 { font-size: 2.4rem; margin: 0 0 10px; font-weight: 700; }
-        .page-hero p  { font-size: 1.05rem; opacity: .85; margin: 0; }
-        .breadcrumb   { font-size: .85rem; opacity: .7; margin-bottom: 14px; }
-        .breadcrumb a { color: #FADBD8; text-decoration: none; }
-
-        .content-wrapper { max-width: 1060px; margin: 40px auto; padding: 0 20px 60px; }
-
-        /* ── Section card ── */
-        .section-card {
-            background: white; border-radius: 12px; padding: 28px 32px;
-            margin-bottom: 28px; box-shadow: 0 2px 12px rgba(0,0,0,.07);
-        }
-        .section-title {
-            font-size: 1.3rem; font-weight: 700; color: #1A2F4E;
-            border-left: 5px solid #2980B9; padding-left: 14px;
-            margin: 0 0 18px;
-        }
-        .section-title.red   { border-color: #E74C3C; }
-        .section-title.green { border-color: #27AE60; }
-        .section-title.orange{ border-color: #E67E22; }
-        p.desc { color: #4a5568; line-height: 1.75; margin: 0 0 12px; }
-
-        /* ── Iteration header ── */
-        .iter-header {
-            background: linear-gradient(90deg, #1A2F4E, #2980B9);
-            color: white; border-radius: 10px 10px 0 0;
-            padding: 16px 24px; display: flex; justify-content: space-between;
-            align-items: center;
-        }
-        .iter-header h3 { margin: 0; font-size: 1.15rem; }
-        .variance-badge {
-            background: rgba(255,255,255,.18); border-radius: 20px;
-            padding: 5px 16px; font-size: .9rem; font-weight: 600;
-        }
-        .iter-body {
-            border: 1px solid #e2e8f0; border-top: none;
-            border-radius: 0 0 10px 10px; padding: 20px 22px; margin-bottom: 24px;
-        }
-
-        /* ── Tables ── */
-        .data-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
-        .data-table thead tr { background: #1A2F4E; color: white; }
-        .data-table thead th { padding: 9px 10px; text-align: center; font-weight: 600; }
-        .data-table tbody tr:nth-child(odd)  { background: #F8F9FA; }
-        .data-table tbody tr:nth-child(even) { background: #ffffff; }
-        .data-table tbody td { padding: 7px 10px; text-align: center; color: #2d3748; border-bottom: 1px solid #e9ecef; }
-        .data-table tbody tr:hover { background: #EBF5FB; }
-
-        .cluster-1 { background: #FADBD8 !important; font-weight: 700; color: #C0392B; }
-        .cluster-2 { background: #D6EAF8 !important; font-weight: 700; color: #1A5276; }
-        .cluster-3 { background: #D5F5E3 !important; font-weight: 700; color: #1E8449; }
-        .min-dist  { font-weight: 700; color: #E74C3C; }
-
-        /* ── Centroid table ── */
-        .centroid-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-        .centroid-table th { background: #1A2F4E; color: white; padding: 10px 14px; text-align: center; }
-        .centroid-table td { padding: 10px 14px; text-align: center; border: 1px solid #e2e8f0; }
-        .centroid-table tr:nth-child(odd) td  { background: #F8F9FA; }
-        .centroid-table tr:nth-child(even) td { background: white; }
-
-        /* ── Variance comparison ── */
-        .variance-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; }
-        .v-card {
-            flex: 1; min-width: 160px; background: #F8F9FA;
-            border-radius: 10px; padding: 18px 20px; text-align: center;
-            border: 2px solid #e2e8f0;
-        }
-        .v-card.best { border-color: #27AE60; background: #D5F5E3; }
-        .v-card .v-num { font-size: 1.6rem; font-weight: 800; color: #1A2F4E; }
-        .v-card .v-label { font-size: .85rem; color: #718096; margin-top: 4px; }
-        .v-card .v-drop { font-size: .9rem; color: #27AE60; font-weight: 600; margin-top: 6px; }
-
-        /* ── Formula box ── */
-        .formula-box {
-            background: #EBF5FB; border: 1px solid #AED6F1;
-            border-radius: 8px; padding: 14px 18px; margin: 12px 0;
-            font-family: 'Courier New', monospace; font-size: .95rem;
-            color: #1A2F4E; text-align: center; font-weight: bold;
-        }
-
-        /* ── Dataset grid ── */
-        .dataset-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 12px; }
-        .ds-item {
-            background: #F8F9FA; border: 1px solid #e2e8f0;
-            border-radius: 6px; padding: 6px 8px;
-            font-size: .78rem; color: #2d3748; text-align: center;
-        }
-        .ds-header { background: #1A2F4E; color: white; font-weight: 700; }
-
-        .sub-title { font-size: 1rem; font-weight: 700; color: #2980B9; margin: 18px 0 10px; }
-        .note { font-size: .82rem; color: #718096; font-style: italic; margin: 6px 0 12px; }
-
-        .result-box {
-            background: linear-gradient(135deg, #1A2F4E, #2980B9);
-            color: white; border-radius: 10px; padding: 20px 24px; margin-top: 14px;
-        }
-        .result-box h4 { margin: 0 0 10px; font-size: 1.1rem; }
-        .result-box p  { margin: 0 0 6px; opacity: .9; line-height: 1.65; }
-    </style>
 </head>
 <body>
 {% include 'navbar.html' %}
@@ -120,7 +14,7 @@
     <div class="breadcrumb">
         <a href="/">Home</a> › Unsupervised ML › Manual Exercise
     </div>
-    <h1>📊 K-Means Manual Exercise</h1>
+    <h1>K-Means Manual Exercise</h1>
     <p>Step-by-step simulation — 100 data points, 3 clusters, 3 iterations</p>
 </div>
 
@@ -267,7 +161,7 @@
     <!-- ITERATION 3 -->
     <div>
         <div class="iter-header" style="background:linear-gradient(90deg,#1A2F4E,#E74C3C);">
-            <h3>🔁 Iteration 3 — Convergence</h3>
+            <h3>Iteration 3 — Convergence</h3>
             <span class="variance-badge">Variance: 0.039787</span>
         </div>
         <div class="iter-body">
