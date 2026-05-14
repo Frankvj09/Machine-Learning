@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Reinforcement Learning Application</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="LinealRegression">
+
+{% include 'navbar.html' %}
+
+<div class="container">
+
+    <div class="header">
+        <h1>Reinforcement Learning Application</h1>
+        <p>Simulation of rewards and agent learning</p>
+    </div>
+
+    <div class="main-card">
+
+        <!-- Problem -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>Problem Description</h3>
+
+            <p>
+                The objective of this simulation is to demonstrate
+                how an agent learns through rewards and penalties.
+            </p>
+
+            <p>
+                The agent performs actions and accumulates rewards
+                across multiple episodes.
+            </p>
+
+        </div>
+
+        <!-- Environment -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>Environment</h3>
+
+            <p>
+                The environment represents the space where the agent interacts.
+            </p>
+
+            <p>
+                At every step, the agent selects an action and receives feedback.
+            </p>
+
+        </div>
+
+        <!-- Reward -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>Reward Mechanism</h3>
+
+            <p>
+                Positive actions generate rewards,
+                while poor actions may generate penalties.
+            </p>
+
+            <div class="formula-box">
+
+                Reward Range:
+                -5 to 10
+
+            </div>
+
+        </div>
+
+        <!-- Episodes -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>Episodes</h3>
+
+            <p>
+                The simulation was executed for 100 episodes.
+            </p>
+
+            <p>
+                During each episode,
+                the agent performed multiple actions.
+            </p>
+
+        </div>
+
+        <!-- Average -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>Average Reward</h3>
+
+            <div class="formula-box">
+
+                Average Reward:
+                {{ promedio|round(2) }}
+
+            </div>
+
+        </div>
+
+        <!-- Graph -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>Rewards Graph</h3>
+
+            <p>
+                The graph below shows the total reward obtained
+                by the agent during each episode.
+            </p>
+
+            <div class="plot-container">
+
+                <img src="{{ url_for('static',
+                filename='reinforcement_plot.png') }}">
+
+            </div>
+
+        </div>
+
+        <!-- Interpretation -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>Interpretation of Results</h3>
+
+            <p>
+                The agent improves its performance through interaction
+                with the environment.
+            </p>
+
+            <p>
+                Over time, rewards tend to stabilize,
+                indicating a learning process.
+            </p>
+
+            <p>
+                Reinforcement learning allows systems to optimize decisions
+                without labeled data.
+            </p>
+
+        </div>
+
+        <!-- Real World -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>Real-World Applications</h3>
+
+            <ul style="margin-left:20px;">
+
+                <li>Autonomous vehicles</li>
+                <li>Robotics</li>
+                <li>Game artificial intelligence</li>
+                <li>Route optimization</li>
+                <li>Recommendation systems</li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

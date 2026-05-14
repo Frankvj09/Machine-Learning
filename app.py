@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 from sklearn.linear_model import LogisticRegression
+from reinforcement_model import generar_grafica_rl
 import LinealRegression
 import LogisticRegression
 import Clustering
@@ -190,7 +191,16 @@ def linear_concepts():
 def logistic_concepts():
     return render_template('logistic_concepts.html')
 
-import os
+@app.route('/reinforcement-concepts')
+def reinforcement_concepts():
+    return render_template('reinforcement_concepts.html')
+
+@app.route('/reinforcement-app')
+def reinforcement_app():
+
+    promedio, ruta = generar_grafica_rl()
+
+    return render_template('reinforcement_app.html', promedio=promedio)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
