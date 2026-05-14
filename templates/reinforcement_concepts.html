@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reinforcement Learning - Concepts</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="LinealRegression">
+
+{% include 'navbar.html' %}
+
+<div class="container">
+
+    <div class="header">
+        <h1>Reinforcement Learning</h1>
+        <p>Learning through interaction and rewards</p>
+    </div>
+
+    <div class="main-card">
+
+        <!-- What is RL -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>What is Reinforcement Learning?</h3>
+
+            <p>
+                Reinforcement Learning is a type of machine learning where
+                an agent learns by interacting with an environment.
+            </p>
+
+            <p>
+                The agent takes actions and receives rewards or penalties
+                depending on the quality of its decisions.
+            </p>
+
+            <p>
+                The objective is to maximize the cumulative reward over time.
+            </p>
+
+        </div>
+
+        <!-- Agent -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>The Agent</h3>
+
+            <p>
+                The agent is the decision-making entity in reinforcement learning.
+            </p>
+
+            <p>
+                It observes the environment, selects actions,
+                and learns from the results of those actions.
+            </p>
+
+        </div>
+
+        <!-- Environment -->
+        <div class="concept-card">
+
+            <div class="concept-icon">🌍</div>
+
+            <h3>The Environment</h3>
+
+            <p>
+                The environment is everything the agent interacts with.
+            </p>
+
+            <p>
+                It responds to the agent’s actions by providing
+                new states and rewards.
+            </p>
+
+        </div>
+
+        <!-- Reward -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>Reward System</h3>
+
+            <p>
+                Rewards are numerical values used to evaluate actions.
+            </p>
+
+            <p>
+                Positive rewards encourage good actions,
+                while penalties discourage poor decisions.
+            </p>
+
+        </div>
+
+        <!-- States -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>States</h3>
+
+            <p>
+                A state represents the current situation of the environment.
+            </p>
+
+            <p>
+                The agent uses states to decide the next action.
+            </p>
+
+        </div>
+
+        <!-- Actions -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>Actions</h3>
+
+            <p>
+                Actions are the possible decisions that the agent can take.
+            </p>
+
+            <p>
+                Each action changes the environment and affects future rewards.
+            </p>
+
+        </div>
+
+        <!-- Q Learning -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>Q-Learning Algorithm</h3>
+
+            <p>
+                Q-Learning is one of the most popular reinforcement learning algorithms.
+            </p>
+
+            <p>
+                It learns a Q-table that stores the value of taking
+                a specific action in a specific state.
+            </p>
+
+            <div class="formula-box">
+
+                Q(s,a) =
+                Q(s,a) + α[r + γ max Q(s',a') − Q(s,a)]
+
+            </div>
+
+            <p>
+                Where:
+            </p>
+
+            <ul style="margin-left:20px;">
+
+                <li>Q(s,a): current value</li>
+                <li>α: learning rate</li>
+                <li>γ: discount factor</li>
+                <li>r: reward</li>
+                <li>s': next state</li>
+
+            </ul>
+
+        </div>
+
+        <!-- Exploration -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>Exploration vs Exploitation</h3>
+
+            <p>
+                Reinforcement learning must balance:
+            </p>
+
+            <ul style="margin-left:20px;">
+
+                <li>
+                    Exploration:
+                    trying new actions
+                </li>
+
+                <li>
+                    Exploitation:
+                    using known good actions
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- Real World -->
+        <div class="concept-card">
+
+            <div class="concept-icon"></div>
+
+            <h3>Real-World Applications</h3>
+
+            <p>
+                Reinforcement learning is used in:
+            </p>
+
+            <ul style="margin-left:20px;">
+
+                <li>Autonomous vehicles</li>
+                <li>Robotics</li>
+                <li>Game AI</li>
+                <li>Recommendation systems</li>
+                <li>Financial optimization</li>
+
+            </ul>
+
+        </div>
+
+        <!-- Conclusion -->
+        <div class="concept-card"
+        style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left-color: #4caf50;">
+
+            <div class="concept-icon"></div>
+
+            <h3>Key Takeaways</h3>
+
+            <ul style="margin-left:20px;">
+
+                <li>
+                    Reinforcement learning learns through rewards.
+                </li>
+
+                <li>
+                    The agent interacts continuously with the environment.
+                </li>
+
+                <li>
+                    Q-Learning is one of the most important algorithms.
+                </li>
+
+                <li>
+                    RL is widely used in modern AI systems.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
